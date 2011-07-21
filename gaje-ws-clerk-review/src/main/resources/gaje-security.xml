@@ -1,0 +1,26 @@
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	default-autowire="byName"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<!--  security.xml for gaje-ws -->
+
+	<!--  Framework level security -->
+	<http realm="ws.gaje.us">			
+		<intercept-url pattern="/**" method="GET"  filters="none" />                    
+        <intercept-url pattern="/**" method="POST" access="IS_AUTHENTICATED_REMEMBERED" /> 
+		<http-basic />
+		<logout logout-url="/logout" />
+	</http>
+
+	<ldap-server url="${ldap.url}/${ldap.base}" />
+	
+	<authentication-manager>
+		<ldap-authentication-provider user-search-base="${ldap.ws.auth.searchbase}" user-search-filter="${ldap.ws.auth.filter}"/>
+	</authentication-manager>
+	
+	
+
+</beans:beans>

@@ -1,0 +1,56 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xmlns:p="http://cxf.apache.org/policy" 
+	xmlns:cxf="http://cxf.apache.org/core"
+	xmlns:wsp='http://www.w3.org/2006/07/ws-policy' 
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:lang="http://www.springframework.org/schema/lang"
+	default-autowire="byName"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
+	http://cxf.apache.org/core 
+	http://cxf.apache.org/schemas/core.xsd
+    http://www.w3.org/2006/07/ws-policy 
+    http://www.w3.org/2006/11/ws-policy.xsd 
+	http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-2.0.xsd 
+	http://cxf.apache.org/jaxws 
+	http://cxf.apache.org/schemas/jaxws.xsd 
+	http://cxf.apache.org/policy 
+	http://cxf.apache.org/schemas/policy.xsd
+	http://www.springframework.org/schema/lang 
+	http://www.springframework.org/schema/lang/spring-lang-2.0.xsd">
+
+	<import resource="classpath:META-INF/cxf/cxf.xml" />
+	<import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
+	<import resource="classpath*:META-INF/cxf/cxf-extension-*.xml" />
+
+	<jaxws:endpoint id="gajeImportWsImpl" 
+		implementor="#myService"
+		address="/GAJE_ImportWS" 
+		publishedEndpointUrl="${gajews.v1.endpoint}"
+		xmlns:e="http://service.jaxws.cxf.apache.org/endpoint" 
+		xmlns:s="http://service.jaxws.cxf.apache.org/service" 
+		wsdlLocation="classpath:GAJE_ImportWS.wsdl"
+		xmlns:gaje="http://GAJEWS.gaaoc.us/"
+		/>
+
+	<bean id="myService" class="us.gaaoc.gajews_impl.GajeWS_QueuedFilings">
+		<property name="converter">
+			<bean class="us.gaaoc.gajews_impl.DomToWebserviceConverter" />
+		</property>
+		<property name="courtAccessDefinitions" ref="courtAccessDefinitions"/>
+		<property name="courtStampController" ref="courtStampController"/>
+		<property name="courtDateStampController" ref="courtDateStampController"/>
+		<property name="level" value="${project.level}"/>
+		<property name="sessionService" ref="sessionService"/>
+		<property name="caseFilingValidator" ref="caseFilingValidator"/>
+    </bean>
+
+    <bean id="sessionService" class="us.gaje.service.impl.spring.SpringSessionService"/>
+
+	<bean id="caseFilingValidator" class="us.gaje.service.CaseFilingValidator"/>
+
+</beans>

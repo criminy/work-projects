@@ -1,0 +1,61 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xmlns:p="http://cxf.apache.org/policy" xmlns:cxf="http://cxf.apache.org/core"
+	xmlns:wsp='http://www.w3.org/2006/07/ws-policy' xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:lang='http://www.springframework.org/schema/lang'
+	default-autowire="byName"
+	xsi:schemaLocation="
+http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
+http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd
+    http://www.w3.org/2006/07/ws-policy
+    http://www.w3.org/2006/11/ws-policy.xsd 
+    http://www.springframework.org/schema/lang 
+      http://www.springframework.org/schema/lang/spring-lang-2.0.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd http://cxf.apache.org/policy http://cxf.apache.org/schemas/policy.xsd">
+
+	<bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
+		
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager" />
+	
+	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location">
+			<value>classpath:DatabaseTest.properties</value>
+		</property>
+	</bean>
+	
+	
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName">
+			<value>${jdbc.driver}</value>
+		</property>
+		<property name="url">
+			<value>
+				${jdbc.url}					
+			</value>
+		</property>
+		<property name="username">
+			<value>${jdbc.user}</value>
+		</property>
+		<property name="password">
+			<value>${jdbc.password}</value>
+		</property>
+	</bean>
+
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+				<property name="showSql">
+					<value>${jdbc.showsql}</value>
+				</property>
+			</bean>
+		</property>
+	</bean>
+
+	<tx:annotation-driven />
+
+
+	
+
+</beans>

@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://GAJEWS.gaaoc.us/"
+	xmlns:http="http://schemas.xmlsoap.org/wsdl/http/"
+	xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:wsoap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:t="http://GAJEWS.gaaoc.us/types/"
+	xmlns:ws="http://GAJEWS.gaaoc.us/"
+	xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" 
+   xmlns:fi="http://java.sun.com/xml/ns/wsit/2006/09/policy/fastinfoset/service" 
+   xmlns:tcp="http://java.sun.com/xml/ns/wsit/2006/09/policy/soaptcp/service" 
+   xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" 
+   xmlns:sc="http://schemas.sun.com/2006/03/wss/server"
+   xmlns:wspp="http://java.sun.com/xml/ns/wsit/policy" 
+   xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702"
+	
+	>
+
+	<wsdl:documentation>This service allows for the retrieval of case records that are ready to be
+		imported into a case management system.</wsdl:documentation>
+
+
+	<wsdl:types>
+		<xs:schema targetNamespace="http://GAJEWS.gaaoc.us/types/"
+			xmlns="http://GAJEWS.gaaoc.us/types/" elementFormDefault="unqualified"
+			attributeFormDefault="unqualified">
+
+			<xs:element name="getQueuedFilingsRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="courtID" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+					
+
+			<xs:element name="getQueuedFilingsResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="cases" type="uuidList"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+
+			<xs:element name="getCaseFilingRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="uuid" type="xs:string" minOccurs="1" maxOccurs="1"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+
+			<xs:element name="getCaseFilingResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="case_filing" type="caseFiling"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			
+			<xs:element name="importAckRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ack" type="importAck_type"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			
+			<xs:element name="importAckResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="success" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			
+			<xs:element name="getDocumentsRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="caseNum" type="xs:string"/>
+						<xs:element name="uuid" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			
+			<xs:element name="getDocumentsResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="documents" type="documentList"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			
+			<xs:element name="docAckRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="caseUuid" type="xs:string"/>
+						<xs:element name="docAck" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>			
+			</xs:element>
+			
+			<xs:element name="docAckResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="docSuccess" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>			
+			</xs:element>
+			
+			<xs:element name="resetRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="reset" type="xs:string"/>
+					</xs:sequence>				
+				</xs:complexType>
+			</xs:element>
+			
+			<xs:element name="resetResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="resetSuccess" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>			
+			
+			<xs:complexType name="importAck_type">
+				<xs:sequence>
+					<xs:element name="success" type="xs:string"/>
+					<xs:element name="uuid" type="xs:string"/>
+					<xs:element name="caseNum" type="xs:string"/>
+					<xs:element name="judge" type="xs:string"/>
+					<xs:element name="reason" type="xs:string" minOccurs="0" maxOccurs="1"/>
+				</xs:sequence>
+			</xs:complexType>
+			
+			<xs:complexType name="organizationList">
+				<xs:sequence minOccurs="0" maxOccurs="unbounded">
+					<xs:element name="organization" type="organization_type"/>
+				</xs:sequence>
+			</xs:complexType>
+
+			<xs:complexType name="caseFiling">
+				<xs:sequence>
+					<xs:element name="docketID" type="xs:string" nillable="true"/>
+					<xs:element name="divID" type="xs:int"/>
+					<xs:element name="type" type="xs:int"/>
+					<xs:element name="category" type="xs:int"/>
+					<xs:element name="filingType" type="xs:int"/>
+					<xs:element name="caption" type="xs:string"/>
+					<xs:element name="date" type="xs:string"/>
+					<xs:element name="dispositionDate" type="xs:string"/>
+					<xs:element name="status" type="xs:string"/>
+					<xs:element name="prosecutionAttorneys" type="caseOfficialList"/>
+					<xs:element name="defenseAttorneys" type="caseOfficialList"/>
+					<xs:element name="initiatingParties" type="casePartyList"/>
+					<xs:element name="caseInitiatingPartyOrganizations" type="casePartyList"/>
+					<xs:element name="caseDefendantParties" type="casePartyList"/>
+					<xs:element name="witnesses" type="casePartyList"/>
+					<xs:element name="events" type="caseEventList"/>
+					<xs:element name="courtID" type="xs:string"/>
+				</xs:sequence>
+			</xs:complexType>
+
+			<xs:complexType name="caseOfficialList">
+				<xs:sequence minOccurs="0" maxOccurs="unbounded">
+					<xs:element name="caseOfficial" type="case_official"/>
+				</xs:sequence>
+			</xs:complexType>
+			
+			<xs:complexType name="case_official">
+				<xs:sequence>
+					<xs:element name="person" type="person_type"/>
+					<xs:element name="barID" type="xs:string"/>
+					<xs:element name="cmsCode" type="xs:string"/>
+				</xs:sequence>
+			</xs:complexType>
+			
+			<xs:complexType name="person_type">
+				<xs:sequence>
+					<xs:element name="lastName" type="xs:string"/>
+					<xs:element name="middleName" type="xs:string"/>
+					<xs:element name="firstName" type="xs:string"/>
+					<xs:element name="suffix" type="xs:string"/>
+					<xs:element name="addresses" type="addressList"/>
+				</xs:sequence>
+			</xs:complexType>
+			
+			<xs:complexType name="addressList">
+				<xs:sequence minOccurs="0" maxOccurs="unbounded">
+					<xs:element name="address" type="address_type"/>
+				</xs:sequence>
+			</xs:complexType>
+			
+			<xs:complexType name="address_type">
+				<xs:sequence>
+					<xs:element name="street1" type="xs:string"/>
+					<xs:element name="street2" type="xs:string"/>
+					<xs:element name="city" type="xs:string"/>
+					<xs:element name="state" type="xs:string"/>
+					<xs:element name="zip" type="xs:string"/>
+				</xs:sequence>
+			</xs:complexType>
+			
+			<xs:complexType name="casePartyList">
+				<xs:sequence minOccurs="0" maxOccurs="unbounded">
+					<xs:element name="caseParty" type="case_party_type"/>
+				</xs:sequence>
+			</xs:complexType>
+
+			<xs:complexType name="case_party_type">
+				<xs:sequence>
+					<xs:element name="person" type="person_type"/>
+					<xs:element name="cmsTypeCode" type="xs:string"/>
+					<xs:element name="organization" type="organization_type"/>
+				</xs:sequence>
+			</xs:complexType>
+			
+			<xs:complexType name="organization_type">
+				<xs:sequence>
+					<xs:element name="name" type="xs:string"/>
+					<xs:element name="addresses" type="addressList"/>
+				</xs:sequence>
+			</xs:complexType>
+			
+			<xs:complexType name="caseEventList">
+				<xs:sequence minOccurs="0" maxOccurs="unbounded">
+					<xs:element name="caseEvent" type="case_event_type"/>
+				</xs:sequence>
+			</xs:complexType>
+			
+			<xs:complexType name="case_event_type">
+				<xs:sequence>
+					<xs:element name="type" type="xs:string"/>
+					<xs:element name="date" type="xs:string"/>
+				</xs:sequence>
+			</xs:complexType>
+			
+			<xs:complexType name="documentList">
+				<xs:sequence minOccurs="0" maxOccurs="unbounded">
+					<xs:element name="document" type="document_type"/>
+				</xs:sequence>
+			</xs:complexType>
+			
+			<xs:complexType name="document_type">
+				<xs:sequence>
+					<xs:element name="uuid" type="xs:string"/>
+					<xs:element name="title" type="xs:string"/>
+					<xs:element name="courtID" type="xs:string"/>
+					<xs:element name="type" type="xs:string"/>
+					<xs:element name="content" type="xs:base64Binary"/>
+				</xs:sequence>
+			</xs:complexType>
+
+			<xs:complexType name="uuidList">
+				<xs:sequence>
+					<xs:element name="uuid" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:complexType>
+
+			<xs:element name="uuid_list" type="uuidList"/>
+			
+	           <xs:element name="putDocument">
+        		<xs:complexType>
+        			<xs:sequence>
+ 							<xs:element name="document"
+ 								type="document_type">
+ 							</xs:element>
+        			</xs:sequence>
+        		</xs:complexType>
+        	</xs:element>
+        	<xs:element name="putDocumentResponse">
+        		<xs:complexType>
+        			<xs:sequence>
+        				<xs:element name="out" type="xs:string"></xs:element>
+        			</xs:sequence>
+        		</xs:complexType>
+        	</xs:element>
+			
+		</xs:schema>
+
+    </wsdl:types>
+
+	<wsdl:message name="getQueuedFilingsRequest">
+		<wsdl:part name="parameters" element="t:getQueuedFilingsRequest"/>
+	</wsdl:message>
+
+	<wsdl:message name="getQueuedFilingsResponse">
+		<wsdl:part name="parameters" element="t:getQueuedFilingsResponse"/>
+	</wsdl:message>
+
+	<wsdl:message name="getCaseFilingRequest">
+		<wsdl:part name="parameters" element="t:getCaseFilingRequest"/>
+	</wsdl:message>
+
+	<wsdl:message name="getCaseFilingResponse">
+		<wsdl:part name="parameters" element="t:getCaseFilingResponse"/>
+	</wsdl:message>
+	
+	<wsdl:message name="importAckRequest">
+		<wsdl:part name="parameters" element="t:importAckRequest"/>
+	</wsdl:message>
+	
+	<wsdl:message name="importAckResponse">
+		<wsdl:part name="parameters" element="t:importAckResponse"/>
+	</wsdl:message>
+	
+	<wsdl:message name="getDocumentsRequest">
+		<wsdl:part name="parameters" element="t:getDocumentsRequest"/>
+	</wsdl:message>
+	
+	<wsdl:message name="getDocumentsResponse">
+		<wsdl:part name="parameters" element="t:getDocumentsResponse"/>
+	</wsdl:message>
+	
+	<wsdl:message name="docAckRequest">
+		<wsdl:part name="parameters" element="t:docAckRequest"/>
+	</wsdl:message>
+	
+	<wsdl:message name="docAckResponse">
+		<wsdl:part name="parameters" element="t:docAckResponse"/>
+	</wsdl:message>
+
+	<wsdl:message name="resetRequest">
+		<wsdl:part name="parameters" element="t:resetRequest"/>
+	</wsdl:message>
+	
+	<wsdl:message name="resetResponse">
+		<wsdl:part name="parameters" element="t:resetResponse"/>
+	</wsdl:message>
+
+	<wsdl:message name="putDocumentRequest">
+		<wsdl:part name="parameters" element="t:putDocument"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="putDocumentResponse">
+		<wsdl:part name="parameters" element="t:putDocumentResponse"></wsdl:part>
+	</wsdl:message>
+	<wsdl:portType name="queuedFilings">
+		<wsdl:operation name="getQueuedFilings">
+			<wsdl:input message="ws:getQueuedFilingsRequest" name="getQueuedFilingsRequest"/>
+			<wsdl:output message="ws:getQueuedFilingsResponse" name="getQueuedFilingsResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="getCaseFiling">
+			<wsdl:input message="ws:getCaseFilingRequest" name="getCaseFilingRequest"/>
+			<wsdl:output message="ws:getCaseFilingResponse" name="getCaseFilingResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="importAck">
+			<wsdl:input message="ws:importAckRequest" name="importAckRequest"/>
+			<wsdl:output message="ws:importAckResponse" name="importAckResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="getDocuments">
+			<wsdl:input message="ws:getDocumentsRequest" name="getDocumentsRequest"/>
+			<wsdl:output message="ws:getDocumentsResponse" name="getDocumentsResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="docAck">
+			<wsdl:input message="ws:docAckRequest" name="docAckRequest"/>
+			<wsdl:output message="ws:docAckResponse" name="docAckResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="reset">
+			<wsdl:input message="ws:resetRequest" name="resetRequest"/>
+			<wsdl:output message="ws:resetResponse" name="resetResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="putDocument">
+			<wsdl:input message="ws:putDocumentRequest" name="putDocumentRequest" ></wsdl:input>
+			<wsdl:output message="ws:putDocumentResponse"  name="putDocumentResponse"></wsdl:output>
+		</wsdl:operation>
+	</wsdl:portType>
+
+	<wsdl:binding name="soap12Binding" type="ws:queuedFilings">
+	
+		<soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+		
+		<wsdl:operation name="getQueuedFilings">
+			<soap:operation soapAction=""/>
+			<wsdl:input name="getQueuedFilingsRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="getQueuedFilingsResponse">
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		
+		<wsdl:operation name="getCaseFiling">
+			<soap:operation soapAction=""/>
+			<wsdl:input name="getCaseFilingRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="getCaseFilingResponse">
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		
+		<wsdl:operation name="importAck">
+			<soap:operation soapAction=""/>
+			<wsdl:input name="importAckRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="importAckResponse">
+				<soap:body use="literal"/>
+			</wsdl:output>			
+		</wsdl:operation>
+		
+		<wsdl:operation name="getDocuments">
+			<soap:operation soapAction=""/>
+			<wsdl:input name="getDocumentsRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="getDocumentsResponse">
+				<soap:body use="literal"/>
+			</wsdl:output>			
+		</wsdl:operation>
+		
+		<wsdl:operation name="docAck">
+			<soap:operation soapAction=""/>
+			<wsdl:input name="docAckRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="docAckResponse">
+				<soap:body use="literal"/>
+			</wsdl:output>			
+		</wsdl:operation>
+
+		<wsdl:operation name="reset">
+			<soap:operation soapAction=""/>
+			<wsdl:input name="resetRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="resetResponse">
+				<soap:body use="literal"/>
+			</wsdl:output>			
+		</wsdl:operation>
+		
+		<wsdl:operation name="putDocument">
+			<soap:operation soapAction=""/>
+			<wsdl:input name="putDocumentRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="putDocumentResponse">
+				<soap:body use="literal"/>
+			</wsdl:output>			
+		</wsdl:operation>
+		
+	</wsdl:binding>
+
+	<wsdl:service name="GAJE_ImportWSService">
+		<wsdl:port name="GAJE_ImportWS" binding="ws:soap12Binding">
+			<soap:address location="https://www.gaje.ws/ws/GAJE_ImportWS"/>
+		</wsdl:port>
+	</wsdl:service>
+
+</wsdl:definitions>

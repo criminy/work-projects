@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://GAJEWS.gaaoc.us/"
+	xmlns:http="http://schemas.xmlsoap.org/wsdl/http/"
+	xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:wsoap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:t="http://GAJEWS.gaaoc.us/types/"
+	xmlns:ws="http://GAJEWS.gaaoc.us/"
+	xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" 
+   xmlns:fi="http://java.sun.com/xml/ns/wsit/2006/09/policy/fastinfoset/service" 
+   xmlns:tcp="http://java.sun.com/xml/ns/wsit/2006/09/policy/soaptcp/service" 
+   xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" 
+   xmlns:sc="http://schemas.sun.com/2006/03/wss/server"
+   xmlns:wspp="http://java.sun.com/xml/ns/wsit/policy" 
+   xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702">
+
+	<wsdl:types>
+		<xs:schema 
+			targetNamespace="http://GAJEWS.gaaoc.us/types/"
+			xmlns="http://GAJEWS.gaaoc.us/types/" 
+			elementFormDefault="unqualified"
+			attributeFormDefault="unqualified">
+			<xs:element name="getQueuedFilings">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="courtID" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+					
+			<xs:element name="getQueuedFilingsResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="cases" type="uuidList"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			
+			
+			
+
+			<xs:element name="getCaseFiling">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="uuid" type="xs:string" minOccurs="1" maxOccurs="1"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+
+			<xs:element name="getCaseFilingResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="case_filing" type="caseFiling"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			
+			
+			
+			
+			
+			<xs:element name="acceptFiling">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="uuid" type="xs:string" nillable="false" minOccurs="1" maxOccurs="1"/>
+						<xs:element name="docket" type="xs:string" nillable="false" minOccurs="1" maxOccurs="1"/>
+						<xs:element name="judge" type="xs:string" nillable="true" minOccurs="0" maxOccurs="1"/>
+						<xs:element name="courtDate" type="xs:date" nillable="true" minOccurs="0" maxOccurs="1"/>
+						<xs:element name="documents" type="documentList" minOccurs="1" maxOccurs="1"/>						
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+									
+			<xs:element name="acceptFilingResponse">
+				<xs:complexType>
+				</xs:complexType>
+			</xs:element>
+			
+			
+			<xs:element name="addDocument">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="uuid" type="xs:string" nillable="false" minOccurs="1" maxOccurs="1"/>
+						<xs:element name="document" type="new_document_type" minOccurs="1" maxOccurs="1"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			
+			<xs:element name="addDocumentResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="generatedDocumentUuid" type="xs:string" minOccurs="1" maxOccurs="1"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			
+			
+			<xs:element name="rejectFiling">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="uuid" type="xs:string" nillable="false" minOccurs="1" maxOccurs="1"/>
+						<xs:element name="rejectionReason" type="xs:string" nillable="true" minOccurs="0" maxOccurs="1"/>
+					</xs:sequence>
+				</xs:complexType>			
+			</xs:element>
+			
+			<xs:element name="rejectFilingResponse">
+				<xs:complexType>
+				</xs:complexType>
+			</xs:element>
+
+
+						
+						
+								
+			<xs:complexType name="organizationList">
+				<xs:sequence minOccurs="0" maxOccurs="unbounded">
+					<xs:element name="organization" type="organization_type"/>
+				</xs:sequence>
+			</xs:complexType>
+
+			<xs:complexType name="caseFiling">
+				<xs:sequence>
+					<xs:element name="docketID" type="xs:string" nillable="true"/>
+					<xs:element name="divID" type="xs:string"/>
+					<xs:element name="type" type="xs:string"/>
+					<xs:element name="category" type="xs:string"/>
+					<xs:element name="filingType" type="xs:string"/>
+					<xs:element name="caption" type="xs:string"/>
+					<xs:element name="date" type="xs:string"/>
+					<xs:element name="dispositionDate" type="xs:string"/>
+					<xs:element name="status" type="xs:string"/>
+					<xs:element name="prosecutionAttorneys" type="caseOfficialList"/>
+					<xs:element name="defenseAttorneys" type="caseOfficialList"/>
+					<xs:element name="initiatingParties" type="casePartyList"/>
+					<xs:element name="caseInitiatingPartyOrganizations" type="casePartyList"/>
+					<xs:element name="caseDefendantParties" type="casePartyList"/>
+					<xs:element name="witnesses" type="casePartyList"/>
+					<xs:element name="events" type="caseEventList"/>
+					<xs:element name="courtID" type="xs:string"/>
+					<xs:element name="documents" type="documentList"/>
+					<xs:element name="filerOrganizationTrackingId" type="xs:string"/>
+				</xs:sequence>
+			</xs:complexType>
+
+			<xs:complexType name="caseOfficialList">
+				<xs:sequence minOccurs="0" maxOccurs="unbounded">
+					<xs:element name="caseOfficial" type="case_official"/>
+				</xs:sequence>
+			</xs:complexType>
+			
+			<xs:complexType name="case_official">
+				<xs:sequence>
+					<xs:element name="person" type="person_type"/>
+					<xs:element name="barID" type="xs:string"/>
+					<xs:element name="cmsCode" type="xs:string"/>
+				</xs:sequence>
+			</xs:complexType>
+			
+			<xs:complexType name="person_type">
+				<xs:sequence>
+					<xs:element name="lastName" type="xs:string"/>
+					<xs:element name="middleName" type="xs:string"/>
+					<xs:element name="firstName" type="xs:string"/>
+					<xs:element name="suffix" type="xs:string"/>
+					<xs:element name="addresses" type="addressList"/>
+				</xs:sequence>
+			</xs:complexType>
+			
+			<xs:complexType name="addressList">
+				<xs:sequence minOccurs="0" maxOccurs="unbounded">
+					<xs:element name="address" type="address_type"/>
+				</xs:sequence>
+			</xs:complexType>
+			
+			<xs:complexType name="address_type">
+				<xs:sequence>
+					<xs:element name="street1" type="xs:string"/>
+					<xs:element name="street2" type="xs:string"/>
+					<xs:element name="city" type="xs:string"/>
+					<xs:element name="state" type="xs:string"/>
+					<xs:element name="zip" type="xs:string"/>
+				</xs:sequence>
+			</xs:complexType>
+			
+			<xs:complexType name="casePartyList">
+				<xs:sequence minOccurs="0" maxOccurs="unbounded">
+					<xs:element name="caseParty" type="case_party_type"/>
+				</xs:sequence>
+			</xs:complexType>
+
+			<xs:complexType name="case_party_type">
+				<xs:sequence>
+					<xs:element name="person" type="person_type"/>
+					<xs:element name="cmsTypeCode" type="xs:string"/>
+					<xs:element name="organization" type="organization_type"/>
+				</xs:sequence>
+			</xs:complexType>
+			
+			<xs:complexType name="organization_type">
+				<xs:sequence>
+					<xs:element name="name" type="xs:string"/>
+					<xs:element name="addresses" type="addressList"/>
+				</xs:sequence>
+			</xs:complexType>
+			
+			<xs:complexType name="caseEventList">
+				<xs:sequence  minOccurs="0" maxOccurs="unbounded">
+					<xs:element name="caseEvent" type="case_event_type"/>
+				</xs:sequence>
+			</xs:complexType>
+			
+			<xs:complexType name="case_event_type">
+				<xs:sequence>
+					<xs:element name="type" type="xs:string"/>
+					<xs:element name="date" type="xs:string"/>
+				</xs:sequence>
+			</xs:complexType>
+			
+			<xs:complexType name="documentList">
+				<xs:sequence minOccurs="0" maxOccurs="unbounded">
+					<xs:element name="document" type="document_type"/>
+				</xs:sequence>
+			</xs:complexType>
+			
+			<xs:complexType name="newDocumentList">
+				<xs:sequence minOccurs="0" maxOccurs="unbounded">
+					<xs:element name="document" type="new_document_type"/>
+				</xs:sequence>
+			</xs:complexType>
+			
+			<xs:complexType name="document_type">
+				<xs:sequence>
+					<xs:element name="uuid" type="xs:string" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="title" type="xs:string" minOccurs="0" maxOccurs="1"/>					
+					<xs:element name="type" type="xs:string" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="content" type="xs:base64Binary" minOccurs="1" maxOccurs="1"/>
+				</xs:sequence>
+			</xs:complexType>
+			
+			<xs:complexType name="new_document_type">
+				<xs:sequence>					
+					<xs:element name="title" type="xs:string" minOccurs="1" maxOccurs="1"/>					
+					<xs:element name="type" type="xs:string" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="content" type="xs:base64Binary" minOccurs="1" maxOccurs="1"/>
+				</xs:sequence>
+			</xs:complexType>
+
+			<xs:complexType name="uuidList">
+				<xs:sequence>
+					<xs:element name="uuid" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:complexType>
+
+			<xs:element name="uuid_list" type="uuidList"/>
+			
+		</xs:schema>
+    </wsdl:types>
+
+	<wsdl:message name="getQueuedFilingsRequest">
+		<wsdl:part name="parameters" element="t:getQueuedFilings"/>
+	</wsdl:message>
+
+	<wsdl:message name="getQueuedFilingsResponse">
+		<wsdl:part name="parameters" element="t:getQueuedFilingsResponse"/>
+	</wsdl:message>
+
+	<wsdl:message name="getCaseFilingRequest">
+		<wsdl:part name="parameters" element="t:getCaseFiling"/>
+	</wsdl:message>
+
+	<wsdl:message name="getCaseFilingResponse">
+		<wsdl:part name="parameters" element="t:getCaseFilingResponse"/>
+	</wsdl:message>
+	
+	<wsdl:message name="acceptFilingRequest">
+		<wsdl:part name="parameters" element="t:acceptFiling"/>
+	</wsdl:message>
+	
+	<wsdl:message name="acceptFilingResponse">
+		<wsdl:part name="parameters" element="t:acceptFilingResponse"/>
+	</wsdl:message>
+	
+	<wsdl:message name="rejectFilingRequest">
+		<wsdl:part name="parameters" element="t:rejectFiling"/>
+	</wsdl:message>
+	<wsdl:message name="rejectFilingResponse">
+		<wsdl:part name="parameters" element="t:rejectFilingResponse"/>
+	</wsdl:message>
+	
+	<wsdl:message name="addDocumentRequest">
+		<wsdl:part name="parameters" element="t:addDocument"/>
+	</wsdl:message>
+	
+	<wsdl:message name="addDocumentResponse">
+		<wsdl:part name="parameters" element="t:addDocumentResponse"/>
+	</wsdl:message>
+	
+	
+	
+	<wsdl:portType name="clerkReview">
+		<wsdl:operation name="getQueuedFilings">
+			<wsdl:input message="ws:getQueuedFilingsRequest" name="getQueuedFilingsRequest"/>
+			<wsdl:output message="ws:getQueuedFilingsResponse" name="getQueuedFilingsResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="getCaseFiling">
+			<wsdl:input message="ws:getCaseFilingRequest" name="getCaseFilingRequest"/>
+			<wsdl:output message="ws:getCaseFilingResponse" name="getCaseFilingResponse"/>
+		</wsdl:operation>
+
+		<wsdl:operation name="acceptFiling">
+			<wsdl:input message="ws:acceptFilingRequest" name="acceptFilingRequest"></wsdl:input>
+			<wsdl:output message="ws:acceptFilingResponse" name="acceptFilingResponse"></wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="rejectFiling">
+			<wsdl:input message="ws:rejectFilingRequest"></wsdl:input>
+			<wsdl:output message="ws:rejectFilingResponse"></wsdl:output>
+		</wsdl:operation>
+		
+		<wsdl:operation name="addDocument">
+			<wsdl:input message="ws:addDocumentRequest"></wsdl:input>
+			<wsdl:output message="ws:addDocumentResponse"></wsdl:output>
+		</wsdl:operation>
+	</wsdl:portType>
+
+
+
+	<wsdl:binding name="soap12Binding" type="ws:clerkReview">
+		<soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document" />
+
+		<wsdl:operation name="getQueuedFilings">
+			<soap:operation soapAction="" />
+			<wsdl:input name="getQueuedFilingsRequest">
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="getQueuedFilingsResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="getCaseFiling">
+			<soap:operation soapAction="" />
+			<wsdl:input name="getCaseFilingRequest">
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="getCaseFilingResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="acceptFiling">
+			<soap:operation soapAction="" />
+			<wsdl:input name="acceptFilingRequest">
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="acceptFilingResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="rejectFiling">
+			<soap:operation soapAction="" />
+			<wsdl:input name="rejectFilingRequest">
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="rejectFilingResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		
+		<wsdl:operation name="addDocument">
+			<soap:operation soapAction=""/>
+			<wsdl:input name="addDocumentRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="addDocumentResponse">
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+
+	<wsdl:service name="GAJE_ClerkReviewService">
+		<wsdl:port name="GAJE_ClerkReviewPort" binding="ws:soap12Binding">
+			<soap:address location="https://www.gaje.ws/ws/GAJE_ImportWS"/>
+		</wsdl:port>
+	</wsdl:service>
+
+</wsdl:definitions>

@@ -1,0 +1,131 @@
+2009-07-28 - artripa:
+	Upgraded to gaje-model 3.0-b and gaje-documents 3.1
+2009-07-28 - artripa:
+	Deployed on production on 2009-07-28.
+2009-07-29 - artripa:
+	Updated logging messages. 
+	Added tomcat support to maven setup.
+	Added javadoc support to maven setup.
+	Updated documentation.
+	Deprecated OpenLDAP support for the CourtAccessDefinitions.
+2009-07-29 - artripa:
+	Refactored production-level logging.
+2009-07-30 - artripa:
+	Moved good PDFTextTargetsUtility into project.
+	Upgraded to gaje-documents 3.0.2 
+2009-08-04 - artripa:
+	Upgraded to gaje-documents 3.0.3
+	Upgraded to gaje-model 3.0.3
+	Fixed code to be compatible with gaje-model 3.0.3
+	Removed deprecated LDAP tests
+	Removed deprecated LDAP classes
+	Version to 3.0.3
+2009-08-12 - artripa:
+	Made CouchDB courtAccess system case insensitive (Caused by a bug).
+	Refactored courtAccess system to be less-couchdb specific.
+	Refactored JSON Handling code.
+	Updated unit test logging.
+	Updated unit test for the courtAccess.
+	Updated properties files to reflect configuration changes.
+	Version to 3.0.4
+2009-08-31 - artripa:
+	Additions:
+		Vendor data model and SQL
+		CourtAccessDefinitionsJPA system and unit test
+		Separate unit test spring configuration
+		JPA Annotation support for models
+		Custom persistence.xml and hibernate configurations for production and testing.
+	Deprecated:
+		CourtAccessDefinitionsCouchDB system
+	Removal:
+		CourtAccessDefinitionsMock
+		CouchDB support			
+	Changes:
+		JUnit 4.5 to 4.4 (to support Spring 2.5 compatibility)
+		Switched CourtAccessDefinitions system to JPA
+	Version:
+		gaje-model 3.0.3 to 3.0.4
+		gaje-ws 3.0.4 to 3.1
+		gaje-documents 3.0.3 to 3.0.4
+2009-09-04 - artripa:
+	Additions:
+		Added mysql based logging for court access.
+			Added table structure for logging.
+		Added comments for SQL tables.
+	Changes:
+		Disabled of couchdb based unit tests
+	Version:
+		gaje-ws 3.1 to 3.1.1
+2009-09-04 - artripa:
+	Additions:
+		Added audit.py script for removing stale audit entries.
+2009-09-11 - artripa:
+	Changes:
+		Updated logging.
+2009-09-14 - artripa:
+	Additions:
+		.cvsignore for javadoc
+	Changes:
+		Updates to GetDocumentsLocalController for documentation, misnamed method.
+	Removal:
+		CouchDB test.
+2009-09-14 - artripa:
+	Additions:
+		commons-dbcp as maven dependency.
+	Removal:
+		c3p0 as maven dependency
+	Changes:
+		Changed Spring configured datasource to use commons-dbcp for pooling. 
+	Version:
+		gaje-ws 3.1 to 3.1.2
+2009-10-23 - artripa:
+	Additions:
+		Added setup.txt
+	Removal:
+		Deprecated GetDocumentsLocalController
+		Removed old couchdb script.
+	Changes:
+		Changed court stamping format.
+		Moved SQL scripts to database-implementation specific folder
+		Moved python scripts to database-implementation specific folder
+2009-12-14 - artripa:
+	Changes:
+		Changed the authentication system to allow anonymous GET operations for WSDL reading.
+		Updated documentation.
+2010-01-12 - artripa:
+	Additions:
+		Added initial CourtStampMetaData data model (unused currently)
+		Added Coweta County support
+	Changes:
+		Updated gaje-security settings
+		Upgraded gaje-documents to 3.0.5
+	Version
+		gaje-ws 3.1.2 to 3.1.3
+2010-01-22 - artripa:
+	Changes:
+		Added Oglethorpe County support.
+		Removed CourtStampMetaData groovy script.
+	Version:
+		gaje-ws 3.1.3 to 3.1.4
+	Removals:
+		Removed DateUtil, FastGrowableIntArray,PDFStamper,PDFTextTargetsUtility. 
+			- Made unneeded by gaje-documents.
+2010-02-16 - artripa:
+	Additions:
+		Added CaseFilingValidator.
+		Added new SoapFault for invalid case.		
+	Version:
+		gaje-ws 3.1.5 to 3.1.4
+		gaje-documents 3.0.5 to 3.1.4
+	Removals:
+		Removed JSON and Couchdb supporting code.
+2010-03-02 - artripa:
+	Changes:
+		Updated logging in main GAJE_WS endpoint.
+		Fixed bug in document binaries handling.
+	Version:
+		gaje-model 3.1.4 to 3.1.5
+		gaje-ws 3.1.4 to 3.1.6
+	
+		
+	

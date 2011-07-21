@@ -1,0 +1,29 @@
+
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:lang="http://www.springframework.org/schema/lang"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+              http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-2.0.4.xsd
+                    http://www.springframework.org/schema/lang 
+      http://www.springframework.org/schema/lang/spring-lang-2.0.xsd"
+	default-autowire="byName">
+
+	<!--  security.xml for gaje-ws -->
+
+	<!--  Framework level security -->
+	<http realm="ws.gaje.us">			
+		<intercept-url pattern="/**" method="GET"  filters="none" />                    
+        <intercept-url pattern="/**" method="POST" access="IS_AUTHENTICATED_REMEMBERED" /> 
+		<http-basic />
+		<logout logout-url="/logout" />
+	</http>
+
+	<ldap-server url="${ldap.url}/${ldap.base}" />
+	<ldap-authentication-provider
+		user-search-base="${ldap.ws.auth.searchbase}" user-search-filter="${ldap.ws.auth.filter}" />
+
+	<!--  Database/Code level security -->
+	<beans:bean id="courtAccessDefinitions"
+		class="us.gaje.service.impl.jpa.CourtAccessDefinitionsJPA"/>	
+
+</beans:beans>

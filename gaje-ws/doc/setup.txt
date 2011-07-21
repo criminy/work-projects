@@ -1,0 +1,58 @@
+# GAJE Web Services Setup #
+
+ ## Dependencies ##
+ 
+ Dependencies can be grabbed from the maven2 repository at https://w2.gaje.us/maven2/ or by adding it
+ to your settings.xml. Make sure the w2.gaje.us SSL certificate is installed on your local java
+ setup by using the keytool -import.
+ 
+ {{{
+      <profiles>
+        <profile>
+            <id>standard-extra-repos</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <repositories>
+                <repository>
+                    <id>gaje repo</id>
+                    <url>https://w2.gaje.us/maven2/</url>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                </repository>
+            </repositories>
+        </profile>
+    </profiles>
+ }}}
+
+ 
+
+ ## Database ##
+    * Create GAJE database or use existing GAJE system/database
+    * run src/main/sql/{db}/tables.sql against the GAJE database
+ 	* run src/main/sql/{db}/logging.sql against any database
+ 	  * Note the database name of the logging.sql
+ 	  
+ ## Logging ##
+    * Edit src/main/resources/log4j.properties
+      * Update methodmysql logging or disable it
+        * If enabled:
+          * Update log4j.appender.methodmysql.URL to point to the right 
+      	  JDBC URL for your database (use what you used for logging.sql)
+          * Update log4j.appender.methodmysql.user and log4j.appender.methodmysql.password
+      * set the project.host to your hostname
+      * create the folders:
+        * /srv/gaje/logs/webservice/ or disable log4j appender
+        * /var/www/${project.host}/log/ or disable log4j appender
+      * Update log4j.appender.faultmail.SMTPHost or disable faultmail log4j appender
+      
+ ## System ##
+   * Edit src/main/resources/project.properties
+     * change project.level to current level
+     * Use the GAJE database for your database connections
+   * Add src/main/python/{db}/audit.py to the crontab of your deployment system.
+     * modify audit.py to point to the logging database.

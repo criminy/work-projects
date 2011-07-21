@@ -1,0 +1,65 @@
+# gaje-ws-clerk-review
+
+## ClerkReview
+
+The *ClerkReview* interface is a java interface generated from a WSDL using the apache-cxf maven2 plugin. This interface
+is implemented a number of times:
+
+    * ClerkReviewErrorHandlingProxy - Proxy interface which handles exceptions, logs them, and translates them.
+    * ClerkReviewSecurityProxy - Proxy interface which verifies that a given user is accessing only the proper court.
+    * ClerkReviewLoggingProxy - Proxy interface which logs requests and responses.
+    * ClerkReviewCaseStatusProxy - Proxy interface which checks if the case is of the required case status before allowing access.
+    * ClerkReviewDelegatingProxy - Standard proxy interface which just delegates to the next proxy in the chain (implements Chainable from our proxy util).
+    * ClerkReviewImpl - Real implementation of the ClerkReview service which contains the business logic.
+    
+Each implementation is a bean which is injected into the previous implementation. The call stack from the SOAP
+layer to the implementation is:
+
+    * SOAP
+       * ClerkReviewErrorHandlingProxy
+          * ClerkReviewLoggingProxy
+             * ClerkReviewSecurityProxy
+             	* ClerkReviewCaseStatusProxy
+                  * ClerkReviewImpl
+
+The configuration for this workflow is in ClerkReviewBeanConfiguration.java, and exposes the required bean using Spring JavaConfig support. By modifying
+the method *clerkReviewService()*, more web-layer wide functionality can be added. Here is an example of that code:
+
+		ProxyBuilder proxyBuilder = new ProxyBuilder();
+		return proxyBuilder.build(ClerkReview.class)
+			.proxy(log())
+			.proxy(handleError())
+			.proxy(handleSecurity())
+			.proxy(checkCaseStatuses())
+			.impl(clerkReviewImpl());
+			
+To insert a new proxy in the workflow, add a new proxy in the chain. The order of the calls is based on order of the method call here.
+By contract, each proxy should invoke the next (or super class) call when appropriate or bail out on any exceptional cases.
+
+### Caching 
+
+There is no caching or little caching here. When two different proxies in the chain want they same database object, they both
+have to call the Repository and pull the object. This is a limitation in the way our proxy API works and the stateless nature
+of the CXF library and the generated ClerkReview interface.
+ 
+Some solutions: 
+	* Write The Repository to support caching, either manually or with @Cachable annotation (spring)
+	* Provide something thread-local, and hope the proxy chain invokes in one single thread.
+
+## Xml dependency
+
+Currently, this module requires XmlGregorianCalendar. This may be a bug in the apache cxf/jaxb bindings generation. Conceptually, we should only depend on
+the standard Date and Time objects, to make this module non-xml specific.
+
+## Naming conventions
+
+When a class is called 'Service', it's probably just a Repository instead. The ClerkReview classes are the services, I think.
+
+## Important Objects
+
+ * DomToWebserviceConverterJPA 
+ 	This is the only business logic class which survived the re-write of this application from the original gaje-ws.
+ 	
+ * GajeCaseFiling
+ 	This class is an attempt to create a smart model object to get away from what some call an "anemic domain model" (http://en.wikipedia.org/wiki/Anemic_Domain_Model). 
+ 	Luckily, this class is just a wrapping around an existing anemic domain class so it is pretty easy to use. 
