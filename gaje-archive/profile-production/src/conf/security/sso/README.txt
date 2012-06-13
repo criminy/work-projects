@@ -1,0 +1,1 @@
+This is the Single Sign On setup for spring security.

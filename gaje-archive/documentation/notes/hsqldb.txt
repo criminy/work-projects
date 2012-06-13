@@ -1,0 +1,7 @@
+
+
+Had to replace HSQLDB with Derby as there was a weird conflict with HSQLDB 2.0.0. Did not feel like figuring
+it out and instead replaced HSQLDB with Derby, which seems like a much more solid embedded database for testing.
+
+ - Shawn Artrip - 2011-June-10 
+

@@ -1,0 +1,22 @@
+Send is a verb in the efiling system that means:
+
+    "Since I am done with the case, take it and give it to the next person who needs to work on it"
+    
+When the system interprets the send verb, one of two things happen:
+
+ * The send verb is accepted.
+   * The receiving user decided.
+   * The receiving user gets an InboxMessage.
+   * The receiving user gets the CaseRecord.
+   * The sending user gets an acknowledgement.
+  OR
+ * The send verb is not accepted.
+   * The sending user gets an error message on their screen.
+  
+The following roles can invoke the 'send' verb:
+
+ * Agent
+ * Attorney
+ * Clerk
+ * Judge
+ * WSClient

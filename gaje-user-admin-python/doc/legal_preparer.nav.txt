@@ -1,0 +1,19 @@
+
+
+/register/lp
+	- Standard data 
+	- Written to database
+	- Next page 
+	
+	/register/lp/editattorney/<uuid>/0
+	
+		- Add/Edit Attornies to the Attorney destination list
+		- Next page increases number by 1 or redirects to Finish path
+		- '0' is the index of the Associated Court/Organization
+
+	/register/lp/signature/<uuid>
+		- edit signature information, if supported
+
+	/register/lp/finish/<uuid>
+		- Finish page
+		

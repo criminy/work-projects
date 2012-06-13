@@ -1,0 +1,5 @@
+
+Use SiteMesh to decorate multiple webapps:
+
+	http://raibledesigns.com/rd/entry/use_sitemesh_to_decorate_multiple
+	Mirror: mirrors/sitemesh_multiple_webapps.txt

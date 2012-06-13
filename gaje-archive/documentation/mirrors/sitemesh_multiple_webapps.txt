@@ -1,0 +1,18 @@
+
+
+Put sitemesh.jar in your container's classpath (tomcat, jboss,activemq, etc)
+You could put it into each webapp's WEB-INF/lib, but it looks like there's problems with that.
+
+Create and deploy a webapp that contains the common decorator.
+
+In each webapp's decorators.xml, add a "webapp" attribute to point to the webapp you deployed in Step 2.
+
+
+<decorators>
+    <!-- load decorator from a different web-app deployed in the server -->
+    <decorator name="main" webapp="some-other-webapp" 
+        page="/decorators/main.jsp">
+        <pattern>/*</pattern>
+    </decorator>
+</decorators>
+ 

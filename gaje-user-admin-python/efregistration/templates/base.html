@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" ><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" >
+<head>
+<title>GAJE EFiling Registration</title>
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="2.css" type="text/css" />
+
+
+<style>
+
+body {
+font-size: 11px;
+font-family: Verdana, Arial, SunSans-Regular, Sans-Serif;
+padding:0px;
+margin:0px;
+background-image: url("http://testing.gaje.us/cs/secure/images/body_bg.gif");
+margin-top:25px;
+}
+
+h1 {
+font-size: 11px;
+text-transform:uppercase;
+background-color: #90A3B5;
+padding:5px 15px;
+margin:0px 
+}
+h2 {
+font-size:20px;
+font-weight: normal;
+padding: 5px 10px;
+margin:0px;}
+
+img.download {vertical-align:middle;}
+
+/* ----------container to center the layout---------- */
+#container {
+width: 900px;
+padding:0px;
+margin: 0px;
+margin-left: auto;
+margin-right: auto;
+margin-top:40px;
+} 
+
+/* ----------banner for logo-------------- */
+#banner {
+padding: 0px;
+margin: 0px; }
+
+#banner img {padding:10px 0px;} 
+
+/* ----------outer and inner----------------- */
+#outer{ 
+border-left: solid 200px #FFFFFF;  /* color of the left column  */ 
+background-color: #ffffff; /* color of the content column */
+ } 
+
+#inner{ margin:0px; width:100%; border-left: 1px solid #cccccc;} /* The ie/pc pecularity */ 
+
+/* --------------left navi------------- */
+#left {
+ width:200px; 
+ float:left; 
+ position:relative; 
+ margin-left:-200px; 
+ margin-right:1px;
+ }
+
+/* -----------------content--------------------- */
+#content{ 
+padding: 20px;
+position: relative; 
+margin: 0px; }
+
+p{
+padding: 5px 10px;
+margin:0px; }
+
+pre{
+font-size: 12px;
+padding: 5px 10px;
+margin:0px;}
+
+/*  ----------------footer---------------------- */ 
+#footer {
+clear:left;
+padding:0px;
+margin:0px;
+text-align: right; } 
+</style>
+</head>
+<body>
+ <!-- Generated at www.csscreator.com -->
+<div id="container" >
+	<div id="banner" >
+		<h1>GAJE Efiling Registration <span style="float:right"><a href="{% url logout %}">Logout</a></span></h1>
+	</div>
+
+	<div id="outer" >
+ 		<div id="inner">
+ 			<div id="left" >
+				<h2>				<a href="/register">Home</a>
+</h2>
+				<h2>Back to <a href="https://www.gaje.us">www.gaje.us</a></h2>
+   		</div>
+   		<div id="content" >
+			{% block content %}
+			
+			{% endblock %}
+		</div><!-- end content -->
+		</div><!-- end inner -->
+	</div><!-- end outer -->
+ 	<div id="footer"></div>
+</div><!-- end container -->
+</body>
+</html>
+

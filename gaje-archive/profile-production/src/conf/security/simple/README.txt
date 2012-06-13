@@ -1,0 +1,1 @@
+This is the simple, non single sign on setup for spring security.

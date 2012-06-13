@@ -1,0 +1,36 @@
+
+UI Modules
+
+There are 5 primary UI modules:
+
+ * Agent Module
+  - Module that allows a user
+    * upload a new case, 
+    * attach documents on the case,
+    * sign the documents
+    * delete the documents 
+    * set new data
+    * send the case
+  
+ * Attorney Module
+  - Module that allows a user to:
+    * Attach documents on the case
+    * sign the documents
+    * reject the case
+    * send the case
+    * set new data
+ 
+ * Clerk Module
+  - Module that allows a user to:
+    * Attach new documents on the case
+    * Sign the documents
+    * Reject the case
+    * Send the case
+    * set new data
+     
+ * Judge Module
+  - Module that allows a user to: ?
+  
+ * Admin Module
+  - Module that allows a user to: ?
+ 

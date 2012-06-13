@@ -1,0 +1,37 @@
+
+## Running Requirements
+
+ * Django 1.3 or above
+ * python-ldap 
+ * Other supported libraries, depending on specific database needs. 
+
+efregistration requires:
+
+	* An ActiveDirectory server, for authentication within an existing network.
+	* An OpenLDAP server, for persisting new attorney information.
+	* A django-supported SQL server (mysql,postgresql,oracle), with three databases:
+		* A database for the efadmin.
+		* A database for the testing/qa system.
+		* A database for the production system.
+
+## Configuring 
+
+To run efadmin, you must create and configure the file located in conf/local.py.
+There is an example inside of conf/local-example.py
+
+Example:
+
+	$ cp conf/local-example.py conf/local.py
+        $ vi conf/local.py
+
+## Running
+
+You can test by running:
+
+	$ ./manage.py runserver
+
+Or by pointing your WSGI-supported webserver (apache2, etc) to django.wsgi .
+
+You can also run using cherrypy, by running:
+	
+	$ python ./scripts/cherrypy_run.py

@@ -1,0 +1,18 @@
+The EFiling JMS system is a system based around the JMS provider ActiveMQ. It uses
+JMS to create a verb-based business module. 
+
+Each user interface module knows about the verbs 'send' and 'reject'. 
+The efiling kernel receives these send and reject calls from the UI using
+the JMS provider and translates them to the proper meaning, using
+the CaseRecord attached to the given verb.
+
+This is a design where:
+
+ * each module can act and change independently of one another without
+   fear of cascading the consequences of bugs and design changes.
+
+ * an arbitrary number of new or duplicate modules can be added without effecting design,
+   system performance, or existing business processes.
+
+ * A central kernel is responsible for most of the business logic, which takes the form
+   routing code.

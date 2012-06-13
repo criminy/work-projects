@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+	{% load url from future %}
+
+	<h1>Adding Attorney(s) for {{ org }}</h1>
+
+	<form method="POST">
+	{% csrf_token %}
+
+		{{ form.as_p }}
+		<input type="submit"/>
+	</form>
+
+{% endblock content %}

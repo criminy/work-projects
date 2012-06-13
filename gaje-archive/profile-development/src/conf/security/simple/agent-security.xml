@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns:beans="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"      
+    xmlns="http://www.springframework.org/schema/security"      
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+		http://www.springframework.org/schema/security 
+		http://www.springframework.org/schema/security/spring-security-3.0.xsd
+        ">
+
+	<global-method-security  pre-post-annotations="enabled" />
+
+
+	<http auto-config="true">	
+		
+		<intercept-url pattern="/**" access="ROLE_AGENT" />
+			
+		<logout logout-url="/logout" invalidate-session="true" />				 
+		<form-login default-target-url="/"  authentication-failure-url="/login?login-error=1" login-page="/login"/>        
+		
+        <intercept-url pattern="/resources/static/**" filters="none" />
+        <intercept-url pattern="/resources/scripts/**" filters="none" />
+        <intercept-url pattern="/resources/style/**" filters="none" />
+        <intercept-url pattern="/resources/images/**" filters="none" />
+        <intercept-url pattern="/resources/favicon.ico" filters="none" />
+		<intercept-url pattern="/login" filters="none" />
+		 
+	</http>
+
+<!---->
+<!---->
+<!--    <http use-expressions="true">-->
+<!--        <intercept-url pattern="/" filters="none"/>                -->
+<!--        <intercept-url pattern="/**" access="isAuthenticated()" />        -->
+<!--        <logout logout-url="/logout" invalidate-session="true" />-->
+<!--        <form-login  authentication-failure-url="/login?login-error=1" login-page="/login"/>-->
+<!--        -->
+<!--          no authentication -->
+
+<!--        <intercept-url pattern="/login" filters="none" />-->
+<!--         xxxxxxxxxxxxxxxxxxxxxx -->
+<!---->
+<!--    </http>-->
+
+	<authentication-manager alias="authenticationManager">
+	  <authentication-provider user-service-ref="agentUserDetailsService"/>	  		  
+	</authentication-manager>
+	
+	<beans:bean id="agentUserDetailsService" 
+		class="us.gaje.efiling.agent.web.security.AgentUserDetailsService"/>
+
+
+</beans:beans>
+

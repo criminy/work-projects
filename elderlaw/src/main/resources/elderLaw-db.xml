@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		http://www.springframework.org/schema/tx 
+     	http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+     	http://www.springframework.org/schema/jdbc
+		http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd">
+
+	<bean
+		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+
+	<bean id="myEmf"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="elderLawDataSource" />
+		<property name="jpaVendorAdapter" ref="HibernateAdapter" />
+		<property name="persistenceUnitName" value="elderLawDBC" />
+	</bean>
+
+	<tx:annotation-driven transaction-manager="txManager" />
+	
+	<!-- Bug using generateddl which is why it's not here https://jira.springframework.org/browse/SPR-6836 -->
+	<bean id="HibernateAdapter"
+		class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+		<property name="showSql" value="false" />
+		<property name="database" value="${DB.db}" />
+	</bean>
+
+	<bean id="txManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="myEmf" />
+	</bean>
+
+	<bean id="elderLawDataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="${DB.driver}" />
+		<property name="url" value="${DB.server}" />
+		<property name="username" value="${DB.user}" />
+		<property name="password" value="${DB.pass}" />
+		<property name="validationQuery" value="${DB.validation}"/>
+	</bean>
+
+</beans>

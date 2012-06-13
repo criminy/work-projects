@@ -1,0 +1,14 @@
+[
+	{"pk": "courtUuidTesting", "model": "efregistration.court", "fields": 
+		{"cms_name": "", "id": "court1", "name": "Testing County Superior Court"}
+	}, 
+
+	{"pk": "initiatingPartyOrganizationUuidTesting", "model": "efregistration.organization", "fields": {"name": "Georgia DHS"}},
+	
+	{"pk": "agent", "model": "efregistration.role", "fields": {"role": "agent"}},
+	{"pk": "attorney", "model": "efregistration.role", "fields": {"role": "attorney"}},
+	
+	{"pk": 1, "model": "efregistration.visualmarkcategory", "fields": {"visualcategory": "Signature"}}, 
+	{"pk": 4, "model": "efregistration.visualmarkcategory", "fields": {"visualcategory": "Sign Date"}}
+
+]

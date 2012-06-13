@@ -1,0 +1,16 @@
+# Purpose
+
+The purpose of 'efadmin' is to provide a group
+of python applications for performing
+administrative commands for GAJE Efiling.
+
+## efregistration
+
+efregistration is an application which allows users to register with the efiling system.
+
+It performs the following tasks:
+	* Allows people to register agents
+		* Can associate attornies with agents.
+	* Allows people to register attorneys
+		* Generates LDAP database information.
+

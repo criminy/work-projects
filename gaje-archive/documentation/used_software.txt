@@ -1,0 +1,58 @@
+
+Running software (development)
+	ActiveMQ 5
+		ActiveMQ is an open sourced implementation of JMS 1.1 as part of the J2EE 1.4 specification.		
+	Jetty 7	
+		Jetty provides an HTTP server, HTTP client, and javax.servlet container. 
+		These components are open source and available for commercial use and distribution.
+		
+		Jetty is used as an embedded servlet container inside of activemq. See jetty.xml
+		 
+	Derby
+		Apache derby is an open source embedded relational database.
+
+Running Software (production)
+	ActiveMQ 5
+		ActiveMQ is an open sourced implementation of JMS 1.1 as part of the J2EE 1.4 specification.	
+	Jetty 7	
+		Jetty provides an HTTP server, HTTP client, and javax.servlet container. 
+		These components are open source and available for commercial use and distribution.
+		
+		Jetty is used as an embedded servlet container inside of activemq. See jetty.xml
+	MySQL 5	
+		MySQL is a relational database management system (RDBMS) that runs as a server providing multi-user access to a number of databases.
+
+Supported building software:	
+	Maven2
+		Apache Maven is a software project management and comprehension tool.
+	Maven3
+		Apache Maven is a software project management and comprehension tool.
+	
+Java Libraries:
+	OGNL
+		OGNL stands for Object-Graph Navigation Language; it is an expression language for getting and setting properties of Java objects. 
+	Camel
+		Apache Camel is a rule-based routing and mediation 
+		engine which provides a Java object based implementation of the 
+		Enterprise Integration Patterns using an API (or declarative Java Domain Specific Language) to configure routing and mediation rules.		
+	Spring 
+		The Spring Framework is an open source application framework for the Java platform
+	PDFBox
+		Apache PDFBox is an open source Java PDF library for working with PDF documents.
+	IText
+		iText is a library that allows you to create and manipulate PDF documents.
+	Hibernate
+		Hibernate an open source Java persistence framework project.
+	JPA
+		The Java Persistence API, sometimes referred to as JPA, is a Java programming language 
+		framework managing relational data in applications using Java.
+	Apache Commons
+		Collection of open source reusable Java components from the Apache/Jakarta community.
+	Sitemesh
+		SiteMesh is a web-page layout and decoration framework and web- application integration framework to aid in creating large 
+		sites consisting of many pages for which a consistent look/feel, navigation and layout scheme is required.
+      
+Javascript Libraries:
+	Jquery
+		jQuery is a lightweight cross-browser JavaScript library that emphasizes interaction between JavaScript and HTML.     
+

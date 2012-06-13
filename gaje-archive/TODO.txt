@@ -1,0 +1,16 @@
+[DONE] 2) Use build profiles for development/production runs . 
+[DONE] 6) Flatten folder structure, a-la other projects.
+
+1) Make integration tests a separate, optional project (since they are super slow).
+3) Upgrade to Spring 3.1 .
+	3a) use spring profiles for profile config, a
+	3b) use java-config
+4) Create a profile which packages the kernel as a standalone WAR file connecting to a remove JMS.
+5) Clean up documentation, remove useless pieces left over from Plex.
+7) Turn into a web-based project, maybe.
+8) implement hash-based indexing of documents.
+	8B) use terrastore to take and store document hashes?
+9) migrate the database schema stuff from the gaje3 project to this project.
+	9B) remove the schema auto-generation from the development, integration, and unit testing profiles
+	9C) Add the schema upgrade scripts to the development and production profiles.
+10) Create a profile which downloads and packages activemq automatically!

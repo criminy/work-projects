@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+	{% load url from future %}
+	
+	<h2>User Registration</h2>
+	<ul>
+		<li><a href="{% url 'lp' %} ">Legal Preparer</a></li>
+		<li><a href="{% url 'attorney' %}">Attorney</a></li>
+	</ul>
+
+	<div id="hints">
+	<h2>Hints</h2>
+	<ul>
+	
+	<li style="font-size: 130%">
+		Register Attorney's before Agents.
+	</li>
+	<li style="font-size: 130%" >
+		Use Ctrl+Left Click to select multiple items in a list.
+	</li>
+	<li style="font-size: 130%" >
+	
+		'Testing' refers to <a href="https://testing.gaje.us/cs">https://testing.gaje.us/cs</a> and
+	</li>
+	<li style="font-size: 130%" >
+		'Production' refers to <a href="https://www.gaje.us/cs">https://www.gaje.us/cs</a>.
+	</li>
+	<li style="font-size: 130%">
+		While creating an attorney, LDAP entities are created as well. However, User Certificates and Signature JPEG Images are not created automatically
+	</li>
+	</ul>
+	</div>
+{% endblock content %}

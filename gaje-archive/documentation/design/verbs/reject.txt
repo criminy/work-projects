@@ -1,0 +1,21 @@
+Reject is a verb in the efiling system that means:
+
+    "This case is invalid, take it and give it to the last person who worked on it"
+    
+When the system interprets the reject verb, one of two things happen:
+
+ * The reject verb is accepted.
+   * The receiving user decided.
+   * The receiving user gets an InboxMessage.
+   * The receiving user gets the CaseRecord.
+   * The rejecting user gets an acknowledgement.
+  OR
+ * The reject verb is not accepted.
+   * The rejecting user gets an error message on their screen.
+  
+The following roles can invoke the 'reject' verb:
+
+ * Attorney
+ * Clerk
+ * Judge
+ * WSClient

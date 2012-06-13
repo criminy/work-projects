@@ -1,0 +1,18 @@
+A deployable version of this application can be made by using:
+
+	mvn package
+	
+and copying the files inside of:
+	
+	distribution/target/distribution-3.0-SNAPSHOT-bin/distribution-3.0-SNAPSHOT/
+	
+to a running application server.
+
+The application server must have:
+
+	1) Access to a valid MySQL connection (if production only)
+	2) ActiveMQ
+	3) Apache Derby (if testing only)
+	4) Java 1.6 or greater.
+	5) Read/Write support to it's own directories.
+	6) Read/Write support to a document filesystem (usually /srv/documents).
